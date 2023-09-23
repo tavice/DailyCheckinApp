@@ -1,14 +1,17 @@
-// ProfileEditScreen.js
-
 import React, {useState} from 'react';
-import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 
 const ProfileEditScreen = ({navigation}) => {
-  const [username, setUsername] = useState(''); // Assuming just a username for simplicity
+  const [username, setUsername] = useState('');
 
   const handleSave = () => {
-    // Save the updated profile data here
-    // For now, we'll just navigate back
     navigation.goBack();
   };
 
@@ -20,7 +23,14 @@ const ProfileEditScreen = ({navigation}) => {
         value={username}
         onChangeText={setUsername}
       />
-      <Button title="Save Changes" onPress={handleSave} />
+      <TouchableOpacity style={styles.SaveButton} onPress={handleSave}>
+        <Text style={styles.buttonText}>Save Changes</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.CancelButton}
+        onPress={() => navigation.goBack()}>
+        <Text style={styles.buttonText}>Cancel</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -39,6 +49,25 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     padding: 10,
     marginBottom: 20,
+  },
+  SaveButton: {
+    marginTop: 20,
+    backgroundColor: 'green',
+    padding: 10,
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  CancelButton: {
+    marginTop: 10,
+    backgroundColor: 'red',
+    padding: 10,
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: 'white',
+    fontFamily: 'Roboto',
+    fontSize: 16,
   },
 });
 

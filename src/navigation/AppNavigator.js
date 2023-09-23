@@ -18,22 +18,46 @@ const HistoryStack = createStackNavigator();
 
 const HomeStackNavigator = () => (
   <HomeStack.Navigator>
-    <HomeStack.Screen name="Welcome" component={HomeScreen} />
+    <HomeStack.Screen
+      name="Welcome"
+      component={HomeScreen}
+      options={{
+        headerShown: false,
+      }}
+    />
     {/* Add other Home related screens here */}
   </HomeStack.Navigator>
 );
 
 const HistoryStackNavigator = () => (
   <HistoryStack.Navigator>
-    <HistoryStack.Screen name="History" component={HistoryScreen} />
+    <HistoryStack.Screen
+      name="Your Task History"
+      component={HistoryScreen}
+      options={{
+        headerShown: false,
+      }}
+    />
     {/* Add other History related screens here */}
   </HistoryStack.Navigator>
 );
 
 const SettingsStackNavigator = () => (
   <HistoryStack.Navigator>
-    <HistoryStack.Screen name="Settings" component={SettingsScreen} />
-    <HistoryStack.Screen name="ProfileEdit" component={ProfileEditScreen} />
+    <HistoryStack.Screen
+      name="SettingsStack"
+      component={SettingsScreen}
+      options={{
+        headerShown: false,
+      }}
+    />
+    <HistoryStack.Screen
+      name="ProfileEdit"
+      component={ProfileEditScreen}
+      options={{
+        headerShown: false,
+      }}
+    />
   </HistoryStack.Navigator>
 );
 
@@ -41,7 +65,10 @@ const AppNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: '#f15454',
+        tabBarActiveTintColor: 'blue',
+        tabBarInactiveTintColor: 'gray',
+        tabBarLabelStyle: {fontSize: 12},
+        tabBarStyle: {height: 60},
       }}>
       <Tab.Screen
         name="Home"
