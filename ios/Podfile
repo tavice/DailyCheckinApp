@@ -48,6 +48,7 @@ target 'DailyCheckinApp' do
   target 'DailyCheckinAppTests' do
     inherit! :complete
     # Pods for testing
+    pod 'React-RCTPushNotification', :path => '../node_modules/react-native/Libraries/PushNotificationIOS'
   end
 
   post_install do |installer|

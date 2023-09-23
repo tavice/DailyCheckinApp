@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {View, Text, TextInput, Button, Modal, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import PushNotification from 'react-native-push-notification';
 
 const SettingsScreen = () => {
   const navigation = useNavigation();
@@ -10,6 +12,8 @@ const SettingsScreen = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [newTask, setNewTask] = useState('');
   const [editingTaskIndex, setEditingTaskIndex] = useState(null);
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   // Function to handle addition of tasks
   const handleAddTask = () => {
@@ -37,6 +41,16 @@ const SettingsScreen = () => {
       setEditingTaskIndex(null);
       setModalVisible(false);
     }
+  };
+
+  //Function to handle notification
+
+  const scheduleNotification = () => {
+    PushNotification.localNotificationSchedule({
+      message: 'Reminder for your task!',
+      date: selectedDate,
+      allowWhileIdle: false,
+    });
   };
 
   return (
@@ -99,22 +113,34 @@ const SettingsScreen = () => {
       {/* Reminders Section */}
       <View>
         <Text>Reminders:</Text>
-        {/* Placeholder for reminders list */}
+
+        <View>
+          <Text>Reminders:</Text>
+          <Button
+            title="Set Reminder"
+            onPress={() => setDatePickerVisibility(true)}
+          />
+          {isDatePickerVisible && (
+            <DateTimePicker
+              value={selectedDate}
+              mode="datetime"
+              onChange={(event, date) => {
+                setDatePickerVisibility(false);
+                setSelectedDate(date);
+                scheduleNotification();
+              }}
+            />
+          )}
+        </View>
+
+        {/* Other Settings */}
         <Button
-          title="Set Reminder"
+          title="Other Settings"
           onPress={() => {
-            /* TODO: Open modal or navigate to Set Reminder Screen */
+            /* TODO: Navigate to Other Settings Screen */
           }}
         />
       </View>
-
-      {/* Other Settings */}
-      <Button
-        title="Other Settings"
-        onPress={() => {
-          /* TODO: Navigate to Other Settings Screen */
-        }}
-      />
     </View>
   );
 };
